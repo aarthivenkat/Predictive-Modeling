@@ -198,10 +198,10 @@ Machine learning and predictive models have a profound application in bioinforma
 
 ## VI. References  
 
-http://www.geneontology.org/
-https://www.nature.com/articles/s41598-018-28948-z
-https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-10-S11-S20
-http://www.geneontology.org/gene-associations/gene_association.mgi.gz
-https://medinform.jmir.org/2015/3/e28/
-https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-9-136
+1. http://www.geneontology.org/
+2. https://www.nature.com/articles/s41598-018-28948-z
+3. https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-10-S11-S20
+4. http://www.geneontology.org/gene-associations/gene_association.mgi.gz
+5. https://medinform.jmir.org/2015/3/e28/
+6. https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-9-136
 
