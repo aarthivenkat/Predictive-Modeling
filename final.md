@@ -1,7 +1,10 @@
 # Text-Mining PubMed Abstracts to Predict Gene Ontology Annotation from GO Consortium Database
 ### Aarthi Venkat
 
-## I. Introduction
+## I. Abstract
+After web-mining PubMed Abstracts and assigning a single high-level GO term to each PubMed abstract, I used a TF-IDF vectorization and LinearSVC Model to perform Multi-Class Categorization of 50,000 PubMed Abstracts. Using precision, recall, and F-score as metrics for success of the model, I acheived average success (F=0.44), expected considering the overlapping and hierarchical nature of the annotation of the abstracts, indicating the need for further integrated approaches with quantitative data, as well as annotation systems with a classical tree structure that allows for intuitive categorization by level.  
+
+## II. Introduction
 With the rise of Next-Generation Sequencing, complex and extremely large biological datasets have hit the bioinformatic world by storm, and, as such, the efforts to make sense of that data have simultaneously been put to the test [1]. One particular difficulty is in characterizing the ontology, or class of function, of genes — necessary for a variety of bioinformatic applications, from literature review to drug target identification and prioritization. Many institutions, including by the Gene Ontology Consortium (GO) and the Jackson Laboratory (MGI), have attempted to remedy differences in classifying gene function with a systematic dictionary of annotations. The dictionary is generally considered a tree of terms from the least specific root term to the highly specific leaf term, but it is actually a directed acyclic graph, with many terms belonging to several sub-categories, and the “level” of the term from the root not necessarily correlated to its specificity in annotation due to differences in height/sizes of subtrees (Figure 1) [1,2]. Bioinformatics scientists are attempting to remedy such issues through utilizing text-mining from scientific papers and comparing gene expression profiles between genes to develop similarity indexes and tools to further support such initiatives. In this project, I aim to contribute to these efforts by performing multi-class text classification of web-mined PubMed abstracts to Gene Ontology (GO) sub-categories.  
 
 Similar datasets and similar tasks have been published, utilizing integrated datasets with multiple text-mined phenotypic accounts, gene expression profiles, and published network and association accounts to corroborate the models [3,6]. The conclusions from similar works attest that you can get an average degree of accuracy from phenotypic text accounts, but in order to apply high confidence to the model, you would need a more precise, quantitative measure by which to analyze genes. I was not able to include gene expression profiles due to the limitations of this assignment (memory and time, largely), but these would be important features to add if I were to create a tool or module for this purpose. That being said, for the purposes of this project - an exploratory, fun and introductory analysis - text-mining PubMed Abstracts seems like a good starting point.  
@@ -9,7 +12,7 @@ Similar datasets and similar tasks have been published, utilizing integrated dat
 ##### Figure 1. Subset of Gene Ontology Annotation DAG with root term <i>biological process</i>
 <img src="/final_figures/biological_process_DAG.JPG" width="780">  
 
-## II. Data Curation and Cleaning
+## III. Data Curation and Cleaning
 I was able to [download](http://www.geneontology.org/page/download-go-annotations) GO annotations from the Gene Ontology Consortium database [4] for Homo sapiens (originally from GO) and Mus musculus (originally from MGI). According to GO, these annotations have all been quality-checked and verified. It should be noted that GO is supposed to be species-agnostic, and as such, species should not play a factor in annotation differences so much as different scientists, goals, and consortiums may. I chose datasets for which a GO term was directly connected to a PubMed ID, so that I (1) could web-mine the paper abstract from the ID and (2) directly connect GO IDs to the abstract to write the model.  
 
 The columns of interest to me had the following form: 
@@ -74,7 +77,7 @@ As such, I turned to GOATOOLS, a Python library for GO analysis designed to, for
 
 The second step to data curation involved web-mining for PubMed abstracts given the ID. Due to time limitation and NCBI restrictions, I could only afford to mine roughly over 50,000 entries in order to still filter out some GO terms. After mining the abstracts and removing entries for which there was no abstract available, I ended up with <b>50,200 PubMed Abstracts</b> with GO categories as labels to them.  
 
-## III. Predictive Task  
+## IV. Predictive Task  
 Modeling from the literature in the field of biomedical text-mining, such as work done by Groth et al with TF-IDF vectorization of phenotypic descriptions of genes and work by Malone et al with phenotypic and expression profiles integrated, I aim to use the text from the abstracts to predict the GO category, so as to alleviate the time and money spent by those painstakingly annotating genes from the literature, not to mention the inaccuracies and differences between groups in these annotations [3,6]. Malone et al evaluated their TF-IDF model with precision, recall, and an F-score for each category, so I maintained the same in this project [Figure 4] [3,5].  
 
 ##### Figure 4. Methods for Evaluating Model  
@@ -133,7 +136,7 @@ The first step in validating that the text is an accurate representation of the 
 | Transcription                 | promoter, transcription        | dna binding, transcription factor                  |   |
 | Vesicle                       | melanosome, melanosomes        | melanosome transport, hsp60 related                |   |
 
-## IV. Results and Discussion  
+## V. Results and Discussion  
 
 I fit parameters to the training set and transformed the dataset to get the feature matrix, and used this and the label vector to fit a <b>LinearSVC model</b> due to the need for large-scale multi-class classification. I optimized this model by training with different parameters, such as only unigrams, only bigrams, and both, and with and without punctuation. I ultimately found the model worked best without punctuation and including dashes, as well as with both unigrams and bigrams. The strength of this model is that is that it is designed to scale to multi-class classification better than methods such as Random Forest Classifier [3], and the weakness is that it takes a while to train and it, also like the others, lacks significant predictive power simply due to the variety in scientific text and lack of data for this project. Nonetheless, for an exploratory task like this personal project, it will suffice as a starting point. The precision, recall and F-score for each category, as well as the average of all the categories, is presented in Table 3.  
 
@@ -193,7 +196,7 @@ The main issue with further optimization of my model was that many of the PubMed
 
 Machine learning and predictive models have a profound application in bioinformatics and biotechnology, and I welcome the challenge of complex and high-dimensional datasets in order to work towards intelligent predictive solutions in biotechnology and healthcare. Finally, of all the interesting conclusions to be made, the one I can be certain of is that systematized annotation is a step in the right direction, but requires much more than phenotypic text.  
 
-## V. References  
+## VI. References  
 
 http://www.geneontology.org/
 https://www.nature.com/articles/s41598-018-28948-z
